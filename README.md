@@ -1,15 +1,9 @@
 # Thermal-Codes Documentation
 
-Source code for the numerical experiments in the paper Random quantum thermal state sampling.
+Source code for the numerical experiments in the paper [Thermal-Drift Sampling: Generating Thermal Ensembles for Learning Many-Body Systems](https://arxiv.org/abs/2602.05912).
 
 Preparing Gibbs states of many-body Hamiltonians is a central task in quantum simulation and finite-temperature quantum physics, while existing approaches typically suffer from unfavorable resource scaling at low temperatures.
 This repository contains simulation code for a quantum thermal state sampling algorithm based on a measurement-controlled thermal drift channel. The algorithm prepares Gibbs states of local Hamiltonians with polynomial resources in inverse temperature and system size, and the accompanying notebooks reproduce the numerical experiments presented in the paper.
-
-The code focuses on:
-1. Sampling Gibbs states of local Hamiltonians using a thermal-drift-based algorithm
-2. Verifying theoretical distributional predictions for Pauli observables
-3. Studying error scaling with inverse temperature
-4. Analyzing precision–variance trade-offs and level-spacing statistics
 
 ## Code–Paper Correspondence
 
@@ -19,7 +13,7 @@ The code focuses on:
 | [Figure 2(b)](./code/distribution.ipynb) | `./code/distribution.ipynb` | \ |
 | [Figure 2(c)](./code/tradeoff.ipynb) | `./code/tradeoff.ipynb` | \ |
 | [Figure 3(a)](./code/level%20statistic.ipynb) | `./code/level statistic.ipynb` | \ |
-| [Figure 3(b)](./code/spsa_exp.ipynb) | `./code/spsa_exp.ipynb` | \ |
+| [Figure 3(b)](./code/spsa_exp.ipynb) | `./code/spsa_exp.ipynb` | GPU and large memory required |
 
 Note that Figure 3(b) may take more than 6 hours to run.
 
