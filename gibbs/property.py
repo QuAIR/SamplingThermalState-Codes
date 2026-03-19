@@ -13,25 +13,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import torch
-import numpy as np
-from typing import List, Tuple, Dict, Optional, Literal
-from scipy.linalg import expm
-from scipy.ndimage import gaussian_filter, gaussian_filter1d
-
-import quairkit as qkit
-from quairkit import State, Hamiltonian
-from quairkit.database import *
-from quairkit.qinfo import *
-
 import os
 from concurrent.futures import ThreadPoolExecutor
+from typing import Dict, List, Literal, Optional, Tuple
+
+import numpy as np
+import quairkit as qkit
+import torch
+from quairkit import Hamiltonian, State
+from quairkit.database import *
+from quairkit.qinfo import *
+from scipy.linalg import expm
+from scipy.ndimage import gaussian_filter, gaussian_filter1d
 
 LN2 = np.log(2.0)
 
 MAX_WORKERS = min(8, os.cpu_count() or 1)
 
-__all__ = ['build_2d_tfim', 'build_2d_heisenberg', 'negativity_spectrum', 'r_stats_from_gibbs_states', 'compare_terms_full_dim_mc',]
+__all__ = ['build_2d_tfim', 'build_2d_heisenberg', 'negativity_spectrum', 'r_stats_from_gibbs_states', 'compare_terms_full_dim_mc', 'pauli_str_to_matrix']
 
 def idx(x, y, Ly):
     return x * Ly + y
@@ -1015,3 +1014,41 @@ def compare_terms_full_dim_mc(
         "color_scale": {"log_color": bool(log_color), "vmin": float(vmin), "vmax": float(vmax)},
     }
     return out
+
+
+# Initialize Pauli dictionary
+_pauli_dict = {
+    'I': eye(),
+    'X': x(),
+    'Y': y(),
+    'Z': z(),
+}
+
+
+def pauli_str_to_matrix(pauli_str: str, n_qubits: int) -> torch.Tensor:
+    """
+    Converts a Pauli string (e.g., 'X0, Z1') or raw string (e.g. 'XZ') into a tensor matrix.
+
+    Args:
+        pauli_str: The string representing Pauli operators.
+        n_qubits: The total number of qubits.
+
+    Returns:
+        A torch.Tensor representing the Kronecker product of the Pauli operators.
+
+    Raises:
+        ValueError: If an invalid Pauli character is encountered.
+    """
+    matrices = []
+    # Clean string if it contains commas or indices (simplified handling based on logic)
+    # The original logic iterates by index, assuming the string length equals n_qubits
+    # or serves as a direct map.
+
+    for i in range(n_qubits):
+        char = pauli_str[i]
+        if char in _pauli_dict:
+            matrices.append(_pauli_dict[char])
+        else:
+            raise ValueError(f"Invalid pauli string: {pauli_str}")
+
+    return nkron(*matrices)

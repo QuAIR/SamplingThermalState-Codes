@@ -18,3 +18,4 @@ The module of thermal state sampling.
 
 from .algorithm import *
 from .property import *
+from .sampler import *

@@ -18,7 +18,10 @@ The code focuses on:
 | [Figure 2(a)](./code/error%20beta.ipynb) | `./code/error beta.ipynb` | \ |
 | [Figure 2(b)](./code/distribution.ipynb) | `./code/distribution.ipynb` | \ |
 | [Figure 2(c)](./code/tradeoff.ipynb) | `./code/tradeoff.ipynb` | \ |
-| [Figure 3](./code/level%20statistic.ipynb) | `./code/level statistic.ipynb` | \ |
+| [Figure 3(a)](./code/level%20statistic.ipynb) | `./code/level statistic.ipynb` | \ |
+| [Figure 3(b)](./code/spsa_exp.ipynb) | `./code/spsa_exp.ipynb` | \ |
+
+Note that Figure 3(b) may take more than 6 hours to run.
 
 ## Repository Structure
 
